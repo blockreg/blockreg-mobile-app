@@ -1,11 +1,21 @@
 import { JSXElement } from '@babel/types';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import * as React from 'react';
 import { SafeAreaView, View, StyleSheet, Text } from 'react-native';
-import {Colors} from '../styles';
+import { StackParams } from '../navigation/StackParams';
+import {Colors, Layout} from '../styles';
 
-const ScreenContainer: React.FC<{children: JSX.Element | JSX.Element[]}> = ({children}) => {
+type ScreenContainerProps = {
+	children: React.ReactNode,
+	centerContent?: boolean,
+}
+
+const ScreenContainer: React.FC<ScreenContainerProps> = ({children, centerContent}) => {
 	return (
-		<View style={styles.container}>
+		<View style={{
+			...styles.container, 
+			...((centerContent) ? Layout.fullFlexCentered : Layout.flex.column)
+		}}>
 			{children}
 		</View>
 	);
@@ -14,9 +24,8 @@ const ScreenContainer: React.FC<{children: JSX.Element | JSX.Element[]}> = ({chi
 const styles = StyleSheet.create({
 	container: {
 		backgroundColor: Colors.black,
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
+		...Layout.flex.column,
+		...Layout.padding.regular,
 	}
 })
 

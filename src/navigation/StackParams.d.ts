@@ -1,18 +1,20 @@
 import { RouteProp } from "@react-navigation/native";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+export type EventScreenParams = {eventId: number, cid: string}
 
 export type StackParams = {
+	'Tabs': BottomTabNavigationProp<BottomTabStackParams>,
+	'Event': EventScreenParams,
+}
+export type BottomTabStackParams = {
 	'Home': undefined,
 	'Scan': undefined,
-	'Event': undefined,
 	'Host': undefined,
 	'Fund': undefined,
 }
 
-type NavigationProp = BottomTabNavigationProp<StackParams>;
-type NavRouteProp = RouteProp<StackParams>;
+export type NavigationProp = NativeStackNavigationProp<StackParams>;
+export type NavRouteProp = RouteProp<StackParams>;
 
-type NavProps = {
-	navigation: NavigationProp,
-	route: NavRouteProp,
-}
