@@ -6,6 +6,9 @@ import { isFaceIdAvailable, requestFaceId } from './Utils';
 import { headlines } from '../styles/typography';
 import { TextInput } from 'react-native-gesture-handler';
 import { PrimaryButton } from '../components/PrimaryButton';
+import ReactNativeBiometrics from 'react-native-biometrics';
+import { Wallet } from '@ethersproject/wallet';
+import * as Keychain from 'react-native-keychain';
 
 
 const WalletScreen: React.FC<{}> = () => {
@@ -21,9 +24,20 @@ const WalletScreen: React.FC<{}> = () => {
 			setFaceIdPermission(granted);
 		};
 	}
+
 	React.useEffect( () => {
 		initFaceId();
 	}, []);
+
+	const createWallet = async () => {
+		const _mnemonic = mnemonic;
+		setMnemonic(""); // Reset the text field
+
+		await Keychain.setGenericPassword("mnemonic", _mnemonic, {accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_CURRENT_SET});
+
+		// const credentials = await Keychain.getGenericPassword();
+
+	}
 
 	return (true) ? (
 		<ScreenContainer>
@@ -31,13 +45,14 @@ const WalletScreen: React.FC<{}> = () => {
 				<Text style={{...Typography.readable}}>Enter your wallet's 12-word mnemonic to enable transactions in the app.</Text>
 				<Text style={Styles.smallLabel}>Mnemonic</Text>
 				<TextInput 
+					value={mnemonic}
 					style={Styles.formTextInput} 
 					onChange={({nativeEvent:{text}}) => setMnemonic(text)} 
 					autoCapitalize="none"
 					autoCorrect={false}
 				/>
 			</View>
-			<PrimaryButton label="Add wallet" action={() => {}}></PrimaryButton>
+			<PrimaryButton label="Add wallet" action={createWallet}></PrimaryButton>
 		</ScreenContainer>
 	) : (
 		<ScreenContainer centerContent={true}>
