@@ -53,6 +53,8 @@
 	<false/>
 	<key>NSCameraUsageDescription</key>
 	<string>Allow your camera to scan QR codes. Required.</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>FaceID is required to use this app.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Inter-Black.ttf</string>

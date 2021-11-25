@@ -1,8 +1,10 @@
-import { FlexStyle, ViewStyle } from "react-native";
-import { ScreenReplaceTypes } from "react-native-screens";
+import { ViewStyle } from "react-native";
 
-type Padding = "regular" | "wide";
+type Padding = "small" | "regular" | "wide";
 export const padding: Record<Padding, ViewStyle> = {
+	small: {
+		padding: 5
+	},
 	regular: {
 		paddingLeft: 16,
 		paddingRight: 16,
@@ -13,7 +15,7 @@ export const padding: Record<Padding, ViewStyle> = {
 	}
 }
 
-type FlexStyle = "column" | "row" | "both";
+type FlexStyle = "column" | "row";
 export const flex: Record<FlexStyle, ViewStyle> = {
 	column: {
 		flex: 1,
@@ -22,11 +24,12 @@ export const flex: Record<FlexStyle, ViewStyle> = {
 	row: {
 		flex: 1,
 		flexDirection: "row",
+		flexGrow: 1,
 	}
 }
 
 type VerticalSpacing = "tight" | "regular" | "wide";
-export const verticalSpacing: Record<VerticalSpacing, ViewStyle> = {
+export const topSpacing: Record<VerticalSpacing, ViewStyle> = {
 	tight: {
 		marginTop: 5
 	},
@@ -35,6 +38,18 @@ export const verticalSpacing: Record<VerticalSpacing, ViewStyle> = {
 	},
 	wide: {
 		marginTop: 25
+	}
+}
+
+export const bottomSpacing: Record<VerticalSpacing, ViewStyle> = {
+	tight: {
+		marginBottom: 5
+	},
+	regular: {
+		marginBottom: 10
+	},
+	wide: {
+		marginBottom: 25
 	}
 }
 

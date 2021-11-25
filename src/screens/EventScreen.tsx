@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ScreenContainer from './ScreenContainer';
 import {Text, StyleSheet, SafeAreaView, View} from 'react-native';
-import { Colors, Layout, Typography } from '../styles';
+import { Colors, Layout, Styles, Typography } from '../styles';
 import { StackParams } from '../navigation/StackParams';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Events from '../contracts/Events';
@@ -25,16 +25,16 @@ const EventScreen: React.FC<EventScreenProps> = ({route}) => {
 	return (isLoaded) ? (
 		<ScreenContainer>
 			<SafeAreaView>
-				<Text style={Typography.labels.small}>Event</Text>
+				<Text style={Styles.smallLabel}>Event</Text>
 				<Text style={styles.name}>{event.name}</Text>
 				
-				<Text style={{...Typography.labels.small, ...Layout.verticalSpacing.regular}}>Description</Text>
+				<Text style={Styles.smallLabel}>Description</Text>
 				<Text style={Typography.readable}>{event.description}</Text>
 
-				<Text style={{...Typography.labels.small, ...Layout.verticalSpacing.regular}}>Date</Text>
+				<Text style={Styles.smallLabel}>Date</Text>
 				<Text style={Typography.readable}>{event.date.toString()}</Text>
 
-				<Text style={{...Typography.labels.small, ...Layout.verticalSpacing.regular}}>Fee</Text>
+				<Text style={Styles.smallLabel}>Fee</Text>
 				<Text style={Typography.readable}>{event.fee.toString()}</Text>
 			</SafeAreaView>
 		</ScreenContainer>
@@ -58,4 +58,4 @@ const styles = StyleSheet.create({
 		color: Colors.white,
 		...Typography.text.small
 	}
-})
+});

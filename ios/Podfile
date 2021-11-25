@@ -12,7 +12,6 @@ target 'blockreg' do
     :hermes_enabled => false
   )
 
-  pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
 
   target 'blockregTests' do
     inherit! :complete
@@ -37,4 +36,5 @@ target 'blockreg' do
 
   permissions_path = '../node_modules/react-native-permissions/ios'
   pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
+  pod 'Permission-FaceID', :path => "#{permissions_path}/FaceID"
 end

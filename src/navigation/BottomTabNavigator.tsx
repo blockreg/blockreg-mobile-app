@@ -16,6 +16,7 @@ const BottomTabNavigator: React.FC<{}> = () => {
 				backgroundColor: Colors.black,
 			},
 			headerTintColor: Colors.white,
+			headerShadowVisible: false,
 			tabBarStyle: {
 				backgroundColor: Colors.darkGray,
 				borderTopWidth: 0,
@@ -56,10 +57,10 @@ const BottomTabNavigator: React.FC<{}> = () => {
 				}}
 			/>
 			<Tabs.Screen 
-				component={Screens.Fund}
-				name="Fund"
+				component={Screens.Wallet}
+				name="Wallet"
 				options={{
-					tabBarLabel: 'Fund',
+					tabBarLabel: 'Wallet',
 					tabBarIcon: ({ color, size }) => (
 						<EthereumLine  color={color} size={28}/>
 					),

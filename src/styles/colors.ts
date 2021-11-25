@@ -1,4 +1,5 @@
-export const primary = "#FF7956";
+export const primary = "#FF722A";
+export const primaryPressed = "#E6651E";
 export const secondary = "#42967C";
 export const white = "#FFFFFF";
 export const lightGray = "#707070";

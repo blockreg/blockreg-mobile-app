@@ -72,7 +72,7 @@ export const text: Record<FontSizes, TextStyle> = {
 	}
 }
 
-export type Headlines = "h1" | "h1Secondary" | "h2" | "h3";
+export type Headlines = "h1" | "h1Secondary" | "h2" | "h3" | "sub1" | "sub2";
 export const headlines: Record<Headlines, TextStyle> = {
 	h1: {
 		color: Colors.white,
@@ -90,6 +90,14 @@ export const headlines: Record<Headlines, TextStyle> = {
 	h3: {
 		color: Colors.white,
 		...text.medium
+	},
+	sub1: {
+		color: Colors.white,
+		...text.small
+	},
+	sub2: {
+		color: Colors.lightGray,
+		...text.small
 	}
 }
 
