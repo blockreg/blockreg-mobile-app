@@ -3,17 +3,17 @@ import "react-native-get-random-values";
 import "@ethersproject/shims";
 
 import Navigation from './navigation';
-import {
-	StyleSheet,
-} from 'react-native';
+import {store} from './store'
+import { Provider } from 'react-redux'
 
 const App = () => {
 	return (
-		<Navigation>
-		</Navigation>
+		<Provider store={store}>
+			<Navigation>
+			</Navigation>
+		</Provider>
 	);
 };
 
-const styles = StyleSheet.create({});
 
 export default App;

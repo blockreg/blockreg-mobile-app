@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 	container: {
 		backgroundColor: Colors.black,
 		...Layout.flex.column,
-		...Layout.padding.regular,
+		...Layout.padding.screen,
 	}
 })
 

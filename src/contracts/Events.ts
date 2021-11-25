@@ -1,30 +1,17 @@
 import { ethers, BigNumber } from 'ethers';
-import { BASE_IPFS_URL } from '../Constants';
+import { BASE_IPFS_URL, CONTRACT_ADDRESSES } from '../Constants';
+import { Blockreg } from '../types';
 import {abi} from './abis/Events';
 
-class Events {
+class EventsContract {
 	_contract: ethers.Contract;
-	id: number;
-	name: string;
-	description: string;
-	date: Date;
-	fee: BigNumber;
-	maxAttendance: number;
-	cid: string;
 
 	constructor(providerOrSigner: ethers.Signer | ethers.providers.Provider) {
-		this._contract = new ethers.Contract("0x347bFC536255915C74A2474786870F1ed0663B0F", abi, providerOrSigner);
-		this.id = 0;
-		this.name = "";
-		this.description = "";
-		this.date = new Date();
-		this.fee = BigNumber.from(0);
-		this.maxAttendance = -1;
-		this.cid = "";
+		this._contract = new ethers.Contract(CONTRACT_ADDRESSES.EVENTS, abi, providerOrSigner);
 	}
 
-	getEvent(eventId: number): Promise<this> {
-		return new Promise<this>(async (resolve, reject) => {
+	getEvent(eventId: number): Promise<Blockreg.Event> {
+		return new Promise<Blockreg.Event>(async (resolve, reject) => {
 			//Retrieve the on-chain data
 			let result;
 			try {
@@ -32,26 +19,32 @@ class Events {
 			} catch (e) {
 				reject("Error: No event found by that ID");
 			}
-			this.id = result[0].toNumber(); //BigNumber
-			this.date = new Date(result[1].toNumber() * 1000); //Seconds to milliseconds 
-			this.fee = result[2];
-			this.maxAttendance = result[3];
-			this.cid = result[4];			
+
+			const event: Blockreg.Event = {
+				id: eventId, 
+				name: "",
+				description: "",
+				date: result[1].toNumber(), //Seconds to milliseconds 
+				fee: result[2].toString(),
+				maxAttendance: result[3],
+				cid: result[4],
+				hasRegistered: false,		
+			}
 			
 			//Retrieve the CID data
-			const response = await fetch(`${BASE_IPFS_URL}${this.cid}`);
+			const response = await fetch(`${BASE_IPFS_URL}${event.cid}`);
 			if ( !response.ok )
-				return reject("Error: Event data couldn't be loaded. CID: "+`${this.cid}`);
+				return reject("Error: Event data couldn't be loaded. CID: "+`${event.cid}`);
 				
 			const data = await response.json();
 			if ( parseInt(data.id) !== eventId ) 
 				return reject("Error: event ID in CID and on-chain don't match.");
 
-			this.name = data.name;
-			this.description = data.description;
-			resolve(this);
+			event.name = data.name;
+			event.description = data.description;
+			resolve(event);
 		});
 	}
-}
+} 
 
-export default Events;
+export default EventsContract;

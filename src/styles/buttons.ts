@@ -10,7 +10,7 @@ const baseContainerStyle: ViewStyle = {
 	borderRadius: 15,
 	marginTop: 'auto',
 	...Layout.bottomSpacing.regular,
-	...Layout.padding.wide
+	...Layout.padding.small
 }
 
 type PrimaryComponents = "container" | "label" | "containerPressed";

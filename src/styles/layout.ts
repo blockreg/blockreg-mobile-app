@@ -1,17 +1,19 @@
 import { ViewStyle } from "react-native";
 
-type Padding = "small" | "regular" | "wide";
+type Padding = "small" | "regular" | "wide" | "screen";
 export const padding: Record<Padding, ViewStyle> = {
 	small: {
 		padding: 5
 	},
 	regular: {
-		paddingLeft: 16,
-		paddingRight: 16,
+		padding: 16,
 	},
 	wide: {
-		paddingLeft: 30,
-		paddingRight: 30,
+		padding: 30,
+	},
+	screen: {
+		paddingLeft: 16,
+		paddingRight: 16,
 	}
 }
 

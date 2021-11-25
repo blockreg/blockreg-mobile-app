@@ -4,22 +4,28 @@ import {Text, StyleSheet, SafeAreaView, View} from 'react-native';
 import { Colors, Layout, Styles, Typography } from '../styles';
 import { StackParams } from '../navigation/StackParams';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import Events from '../contracts/Events';
+import EventsContract from '../contracts/Events';
 import { getWeb3Provider } from './Utils';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { addEvent } from '../redux/EventsSlice';
 
 type EventScreenProps = NativeStackScreenProps<StackParams, 'Event'>;
 
 const EventScreen: React.FC<EventScreenProps> = ({route}) => {
-	const initState: Events = {} as Events;
-	const [event, setEvent] = React.useState(initState);
+	const dispatch = useAppDispatch();
+	const event = useAppSelector((state) => state.events.scanned[route.params.eventId]);
 	const [isLoaded, setIsLoaded] = React.useState(false);
 
 	React.useEffect(() => {
-		const events = new Events(getWeb3Provider());
-		events.getEvent(route.params.eventId).then((event) => {
-			setEvent(event);
+		if ( !event ) {
+			const contract = new EventsContract(getWeb3Provider());
+			contract.getEvent(route.params.eventId).then((_event) => {
+				dispatch(addEvent(_event));
+				setIsLoaded(true);
+			});
+		} else {
 			setIsLoaded(true);
-		})
+		}
 	}, []);
 
 	return (isLoaded) ? (
