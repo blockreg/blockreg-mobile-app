@@ -1,42 +1,48 @@
 import * as React from 'react';
 import ScreenContainer from './ScreenContainer';
-import {Text, StyleSheet, SafeAreaView} from 'react-native';
+import {Text, StyleSheet, SafeAreaView, View} from 'react-native';
 import { Colors, Layout, Typography } from '../styles';
 import { StackParams } from '../navigation/StackParams';
-import { BASE_IPFS_URL } from '../Constants';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import Events from '../contracts/Events';
+import { getWeb3Provider } from './Utils';
 
 type EventScreenProps = NativeStackScreenProps<StackParams, 'Event'>;
 
 const EventScreen: React.FC<EventScreenProps> = ({route}) => {
-	const [state, setState] = React.useState({event: {name: "", description: ""}});
-	const {eventId, cid} = route.params;
-	let message = "Loading...";
-	let isLoaded = false;
+	const initState: Events = {} as Events;
+	const [event, setEvent] = React.useState(initState);
+	const [isLoaded, setIsLoaded] = React.useState(false);
 
 	React.useEffect(() => {
-		fetch(`${BASE_IPFS_URL}${cid}`).then(async (response) => {
-			if ( !response.ok )
-				return console.log("Event data couldn't be loaded. "+`${BASE_IPFS_URL}${cid}`);
-			
-			const event = await response.json();
-			setState({event});
-			isLoaded = true;
-		}, (error) => {
-			console.log("Failed to fetch", error);
-		});
+		const events = new Events(getWeb3Provider());
+		events.getEvent(route.params.eventId).then((event) => {
+			setEvent(event);
+			setIsLoaded(true);
+		})
 	}, []);
 
-	return (
+	return (isLoaded) ? (
 		<ScreenContainer>
-			<SafeAreaView style={styles.container}>
+			<SafeAreaView>
 				<Text style={Typography.labels.small}>Event</Text>
-				<Text style={styles.name}>{state.event.name}</Text>
+				<Text style={styles.name}>{event.name}</Text>
 				
 				<Text style={{...Typography.labels.small, ...Layout.verticalSpacing.regular}}>Description</Text>
-				<Text style={Typography.readable}>Description {state.event.description}</Text>
+				<Text style={Typography.readable}>{event.description}</Text>
 
+				<Text style={{...Typography.labels.small, ...Layout.verticalSpacing.regular}}>Date</Text>
+				<Text style={Typography.readable}>{event.date.toString()}</Text>
+
+				<Text style={{...Typography.labels.small, ...Layout.verticalSpacing.regular}}>Fee</Text>
+				<Text style={Typography.readable}>{event.fee.toString()}</Text>
 			</SafeAreaView>
+		</ScreenContainer>
+	) : (
+		<ScreenContainer centerContent={true}>
+			<Text>
+				Loading...
+			</Text>
 		</ScreenContainer>
 	);
 }
