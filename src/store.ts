@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import eventsReducer from './redux/EventsSlice';
+import WalletReducer from './redux/WalletSlice';
 
 export const store = configureStore({
 	reducer: {
-		events: eventsReducer
+		events: eventsReducer,
+		wallet: WalletReducer,
 	}
 });
 
