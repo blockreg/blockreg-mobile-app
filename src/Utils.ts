@@ -1,12 +1,14 @@
 import { ethers } from "ethers";
 import ReactNativeBiometrics from 'react-native-biometrics';
+import { ForceTouchGestureHandler } from "react-native-gesture-handler";
 import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions';
 
 export function getWeb3Provider() {
 	const network = "kovan";
-	return ethers.getDefaultProvider(network, {
-		infura: "d4ce2acc4c8d4df3aa13791fa8caf9d3",
-	});
+	return new ethers.providers.InfuraProvider(network, "d4ce2acc4c8d4df3aa13791fa8caf9d3");
+	// return ethers.getDefaultProvider(network, {
+	// 	infura: "d4ce2acc4c8d4df3aa13791fa8caf9d3",
+	// });
 }
 
 export async function isFaceIdAvailable(): Promise<boolean> {

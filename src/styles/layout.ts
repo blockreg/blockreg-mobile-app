@@ -1,4 +1,4 @@
-import { ViewStyle } from "react-native";
+import { TextStyle, View, ViewStyle } from "react-native";
 
 type Padding = "small" | "regular" | "wide" | "screen";
 export const padding: Record<Padding, ViewStyle> = {
@@ -59,4 +59,8 @@ export const fullFlexCentered: ViewStyle = {
 	flex: 1,
 	justifyContent: 'center',
 	alignItems: 'center',
+}
+
+export const fullWidth: ViewStyle | TextStyle = {
+	width: "100%",
 }

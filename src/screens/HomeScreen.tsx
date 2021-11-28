@@ -2,25 +2,37 @@ import * as React from 'react';
 import ScreenContainer from './ScreenContainer';
 import {Text, StyleSheet, View, Pressable} from 'react-native';
 import { Colors, Layout, Typography } from '../styles';
-import { useAppSelector } from '../hooks';
+import { useAppDispatch, useAppSelector } from '../hooks';
 import { Blockreg } from '../types';
 import { FlatList } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { NavigationProp } from '../navigation/StackParams';
+import EventCard from '../components/EventCard';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { STORAGE_KEYS } from '../Constants';
+import { addScannedEvent } from '../redux/EventsSlice';
 
 const HomeScreen: React.FC<{navigation: NavigationProp}> = ({navigation}) => {
+	const dispatch = useAppDispatch();
 	const events = useAppSelector((state) => state.events.scanned);
 	const length = Object.keys(events).length;
 
-	const date = new Date();
-	const upcomingEvents: Blockreg.Event[] = Object.values(events).filter((event) => event.date*1000 > date);
+	const date = Date.now();
+	const upcomingEvents: Blockreg.Event[] = Object.values(events).filter((event) => parseInt(event.date) * 1000 > date);
+
+	const loadScannedEvents = async () => {
+		const jsonStr = await AsyncStorage.getItem(STORAGE_KEYS.SCANNED_EVENTS) || '{}';
+		const events = JSON.parse(jsonStr);
+		Object.keys(events).map(key => dispatch(addScannedEvent(events[key])));
+	}
+
+	React.useEffect(() => {
+		loadScannedEvents();
+	}, [])
 
 	const renderSnippet = ({item}) => (
-		<Pressable  onPress={() => navigation.navigate("Event", {eventId: item.id}) }>
-			<View style={{backgroundColor: Colors.darkGray, borderRadius: 15, ...Layout.padding.wide}}>
-				<Text>{item.name}</Text>
-				<Text>{new Date(item.date * 1000).toString()}</Text>
-			</View>
+		<Pressable style={Layout.bottomSpacing.wide} onPress={() => navigation.navigate("Event", {eventId: item.id}) }>
+			<EventCard event={item} />
 		</Pressable >
 	);
 
@@ -32,6 +44,7 @@ const HomeScreen: React.FC<{navigation: NavigationProp}> = ({navigation}) => {
 	) : (
 		<ScreenContainer>
 			<SafeAreaView>
+				<Text style={[Layout.bottomSpacing.wide, Layout.topSpacing.wide, Typography.headlines.h1]}>Upcoming Events</Text>
 				<FlatList
 					data={upcomingEvents}
 					renderItem={renderSnippet}

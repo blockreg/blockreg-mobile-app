@@ -1,10 +1,12 @@
 import * as React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { StackParams } from './StackParams';
-import Screens from '../screens';
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import BottomTabNavigator from "./BottomTabNavigator";
 import { Colors } from "../styles";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { StackParams } from './StackParams';
+import { NavigationContainer } from "@react-navigation/native";
+import BottomTabNavigator from "./BottomTabNavigator";
+import Screens from '../screens';
+import EBScreens from '../screens/EventBuilder';
+import RBScreens from '../screens/RegistrationBuilder';
 
 const RootStack = createNativeStackNavigator<StackParams>(); 
 
@@ -19,18 +21,76 @@ const Navigation: React.FC<{}> = () => {
 			headerTintColor: Colors.white,
 		}}>
 				<RootStack.Screen
-					name="Tabs"
-					component={BottomTabNavigator}
-					options={{headerShown: false}}
-				/> 
-				<RootStack.Screen
 					name="Event"
 					component={Screens.Event}
 					options={{
 						headerTitle: "", 
 						headerBackVisible: true, 
 					}}
-					initialParams={{eventId: 1, cid: "QmVe5MHFFMtkMJ9wsEXEuEdukR4MHLaYGx7iVKPu5czvJd"}}
+					initialParams={{eventId: 1}}
+				/> 
+				<RootStack.Screen
+					name="TestTransaction"
+					component={Screens.TestTransaction}
+					options={{
+						headerTitle: "", 
+						headerBackVisible: true, 
+					}}
+				/> 
+				<RootStack.Screen
+					name="Tabs"
+					component={BottomTabNavigator}
+					options={{headerShown: false}}
+				/> 
+				<RootStack.Screen
+					name="EBSlide1"
+					component={EBScreens.Slide1}
+					options={{
+						headerTitle: "", 
+					}}
+				/> 
+				<RootStack.Screen
+					name="EBSlide2"
+					component={EBScreens.Slide2}
+					options={{
+						headerTitle: "", 
+					}}
+				/>
+				<RootStack.Screen
+					name="EBSlide3"
+					component={EBScreens.Slide3}
+					options={{
+						headerTitle: "", 
+					}}
+				/>
+				<RootStack.Screen
+					name="EBSlide4"
+					component={EBScreens.Slide4}
+					options={{
+						headerTitle: "", 
+					}}
+				/>
+				<RootStack.Screen
+					name="EBConfirmation"
+					component={EBScreens.Confirmation}
+					options={{
+						headerTitle: "", 
+					}}
+				/> 
+				<RootStack.Screen
+					name="EBSuccess"
+					component={EBScreens.Success}
+					options={{
+						headerTitle: "", 
+					}}
+				/> 
+
+				<RootStack.Screen
+					name="RBSlide1"
+					component={RBScreens.Slide1}
+					options={{
+						headerTitle: "", 
+					}}
 				/> 
 			</RootStack.Navigator>
 		</NavigationContainer>

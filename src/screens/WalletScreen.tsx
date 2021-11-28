@@ -1,8 +1,8 @@
 import * as React from 'react';
 import ScreenContainer from './ScreenContainer';
-import {StyleSheet, Text, View} from 'react-native';
+import { Text, View} from 'react-native';
 import { Layout, Styles, Typography } from '../styles';
-import { getWeb3Provider, isFaceIdAvailable, requestFaceId } from './Utils';
+import { getWeb3Provider, isFaceIdAvailable, requestFaceId } from '../Utils';
 import { headlines } from '../styles/typography';
 import { TextInput } from 'react-native-gesture-handler';
 import { PrimaryButton } from '../components/PrimaryButton';
@@ -60,7 +60,7 @@ const WalletScreen: React.FC<{}> = () => {
 		setTimeout(() => {
 			try {
 				const wallet = Wallet.fromMnemonic(state.mnemonic);
-				Keychain.setGenericPassword(state.mnemonic, wallet.privateKey);
+				Keychain.setGenericPassword(state.mnemonic, wallet.privateKey, {accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_CURRENT_SET});
 				AsyncStorage.setItem(STORAGE_KEYS.WALLET_PUBLIC_KEY, wallet.publicKey);
 				initWallet();
 			} catch (e) {

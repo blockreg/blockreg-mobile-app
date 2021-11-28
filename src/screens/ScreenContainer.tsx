@@ -1,27 +1,30 @@
 import { JSXElement } from '@babel/types';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import * as React from 'react';
-import { SafeAreaView, View, StyleSheet, Text } from 'react-native';
+import { SafeAreaView, View, StyleSheet, Text, TouchableWithoutFeedback, ViewPropsAndroid } from 'react-native';
 import { StackParams } from '../navigation/StackParams';
 import {Colors, Layout} from '../styles';
 
 type ScreenContainerProps = {
 	children: React.ReactNode,
 	centerContent?: boolean,
+	onPress?: () => void,
 }
 
-const ScreenContainer: React.FC<ScreenContainerProps> = ({children, centerContent}) => {
+const ScreenContainer: React.FC<ScreenContainerProps> = ({children, centerContent, onPress}) => {
 	return (
-		<View style={{
-			...styles.container, 
-			...((centerContent) ? Layout.fullFlexCentered : Layout.flex.column)
-		}}>
-			{children}
-		</View>
+		<TouchableWithoutFeedback onPress={(onPress) ? onPress : ()=>{}}>
+			<View style={{
+				..._styles.container, 
+				...((centerContent) ? Layout.fullFlexCentered : Layout.flex.column)
+			}}>
+				{children}
+			</View>
+		</TouchableWithoutFeedback>
 	);
 } 
 
-const styles = StyleSheet.create({
+const _styles = StyleSheet.create({
 	container: {
 		backgroundColor: Colors.black,
 		...Layout.flex.column,

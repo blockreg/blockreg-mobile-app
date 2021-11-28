@@ -1,11 +1,12 @@
 import * as React from "react";
-import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { BottomTabStackParams } from './StackParams';
 import Screens from '../screens';
-import {Colors} from '../styles';
+import {Colors, Layout} from '../styles';
 import Icon from 'react-native-remix-icon';
 import EthereumLine from '../custom-icons/EthereumLine';
+import { Text } from "react-native-svg";
+import { Pressable } from "react-native";
 
 const Tabs = createBottomTabNavigator<BottomTabStackParams>(); 
 
@@ -49,14 +50,20 @@ const BottomTabNavigator: React.FC<{}> = () => {
 			<Tabs.Screen 
 				component={Screens.Host}
 				name="Host"
-				options={{
+				options={({navigation}) => ({
+					title: "Host an Event",
 					tabBarLabel: 'Host',
-					tabBarIcon: ({ color, size }) => (
+					tabBarIcon: ({ color, size, }) => (
 						<Icon name="calendar-event-fill" size={size} color={color} />
 					),
-				}}
+					headerRight: () => (
+						<Pressable style={{...Layout.padding.screen}} onPress={() => navigation.navigate('EBSlide1')}>
+							<Icon name='add-circle-line' color={Colors.primary}></Icon><Text>HEYY</Text>
+						</Pressable>
+					),
+				})}
 			/>
-			<Tabs.Screen 
+			<Tabs.Screen
 				component={Screens.Wallet}
 				name="Wallet"
 				options={{

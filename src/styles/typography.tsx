@@ -47,26 +47,32 @@ export const lineHeight: Record<FontSizes, TextStyle> = {
 
 export const text: Record<FontSizes, TextStyle> = {
 	"tiny": { 
+		color: Colors.white,
 		...fontSize.tiny,
 		...lineHeight.tiny,
 	},
 	"small": { 
+		color: Colors.white,
 		...fontSize.small,
 		...lineHeight.small,
 	},
 	"medium": { 
+		color: Colors.white,
 		...fontSize.medium,
 		...lineHeight.medium,
 	},
 	"large": { 
+		color: Colors.white,
 		...fontSize.large,
 		...lineHeight.large,
 	},
 	"xlarge": { 
+		color: Colors.white,
 		...fontSize.xlarge,
 		...lineHeight.xlarge,
 	},
 	"xxlarge": { 
+		color: Colors.white,
 		...fontSize.xxlarge,
 		...lineHeight.xxlarge,
 	}
@@ -80,8 +86,8 @@ export const headlines: Record<Headlines, TextStyle> = {
 		...text.xlarge,
 	},
 	h1Secondary: {
-		color: Colors.secondary, 
 		...text.xlarge,
+		color: Colors.secondary, 
 	},
 	h2: {
 		color: Colors.white,
@@ -109,7 +115,7 @@ export const labels: Record<Labels, TextStyle> = {
 	},
 	regular: {
 		...text.medium,
-		color: Colors.lightGray
+		color: Colors.white
 	}
 }
 

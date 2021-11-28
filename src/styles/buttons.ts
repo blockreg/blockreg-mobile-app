@@ -4,12 +4,15 @@ import * as Layout from './layout';
 import { TextStyle, ViewStyle } from "react-native";
 
 const baseContainerStyle: ViewStyle = {
+	width: "100%",
 	alignSelf: 'stretch',
 	justifyContent: 'center',
 	alignItems: 'center',
 	borderRadius: 15,
 	marginTop: 'auto',
-	...Layout.bottomSpacing.regular,
+	marginLeft: 'auto',
+	marginRight: 'auto',
+	...Layout.bottomSpacing.wide,
 	...Layout.padding.small
 }
 

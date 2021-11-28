@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { ethers, BigNumber } from 'ethers';
 import { BASE_IPFS_URL, CONTRACT_ADDRESSES } from '../Constants';
 import { Blockreg } from '../types';
@@ -25,7 +26,9 @@ class EventsContract {
 				name: "",
 				description: "",
 				date: result[1].toNumber(), //Seconds to milliseconds 
+				dateReadable: dayjs.unix(result[1].toNumber()).format("MMM D, YYYY H:mm"), //Seconds to milliseconds 
 				fee: result[2].toString(),
+				feeReadable: ethers.utils.formatEther(result[2].toString()),
 				maxAttendance: result[3],
 				cid: result[4],
 				hasRegistered: false,		
@@ -40,10 +43,39 @@ class EventsContract {
 			if ( parseInt(data.id) !== eventId ) 
 				return reject("Error: event ID in CID and on-chain don't match.");
 
-			event.name = data.name;
-			event.description = data.description;
+			event.name = decodeURI(data.name);
+			event.description = decodeURI(data.description);
 			resolve(event);
 		});
+	}
+
+	async getGasPrice() {
+		const gas = await this._contract.getGasPrice();
+		return gas.toString();
+	}
+
+	async createEvent(event: Blockreg.Event, estimateGas?: boolean) {
+		const data = {
+			name: encodeURI(event.name),
+			description: encodeURI(event.description),
+			badgeColor: event?.badgeColor,
+			logoCid: event.logo,
+			date: dayjs(event.date).unix(),
+			fee: ethers.utils.parseEther(event.fee).toString(),
+			maxAttendance: event.maxAttendance ?? -1,
+		}
+		const overrides = {
+			gasLimit: 12500000,
+		}
+		if ( estimateGas ) {
+			return await this._contract.estimateGas.createEvent(data.name, data.description, data.badgeColor, data.logoCid, data.date, data.fee, data.maxAttendance, overrides);
+		} else {
+			return await this._contract.createEvent(data.name, data.description, data.badgeColor, data.logoCid, data.date, data.fee, data.maxAttendance, overrides);
+		}
+	}
+
+	async getHostedEvents(): Promise<Blockreg.EventResponse[]> {
+		return await this._contract.getHostedEvents();
 	}
 } 
 
