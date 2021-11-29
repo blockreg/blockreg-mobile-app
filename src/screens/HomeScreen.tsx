@@ -15,10 +15,10 @@ import { addScannedEvent } from '../redux/EventsSlice';
 const HomeScreen: React.FC<{navigation: NavigationProp}> = ({navigation}) => {
 	const dispatch = useAppDispatch();
 	const events = useAppSelector((state) => state.events.scanned);
-	const length = Object.keys(events).length;
+	const length = 0; Object.keys(events).length;
 
 	const date = Date.now();
-	const upcomingEvents: Blockreg.Event[] = Object.values(events).filter((event) => parseInt(event.date) * 1000 > date);
+	const upcomingEvents: Blockreg.Event[] = [];//Object.values(events).filter((event) => parseInt(event.date) * 1000 > date);
 
 	const loadScannedEvents = async () => {
 		const jsonStr = await AsyncStorage.getItem(STORAGE_KEYS.SCANNED_EVENTS) || '{}';

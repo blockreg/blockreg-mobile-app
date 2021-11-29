@@ -3,13 +3,15 @@ import Scan from './ScanScreen';
 import Event from './EventScreen';
 import Host from './HostScreen';
 import Wallet from './WalletScreen';
-import TestTransaction from './TestTransaction';
+import Camera from './CameraScreen';
+import SecureRegistration from './SecureRegistration';
 
 export default {
-	"Home": Home,
-	"Scan": Scan,
-	"Event": Event,
-	"Host": Host,
-	"Wallet": Wallet, 
-	"TestTransaction": TestTransaction,
+	Home,
+	Scan,
+	Event,
+	Host,
+	Wallet, 
+	Camera,
+	SecureRegistration, 
 };

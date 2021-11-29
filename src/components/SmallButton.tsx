@@ -2,23 +2,23 @@ import * as React from 'react';
 import { Keyboard, Pressable, Text } from 'react-native';
 import { Buttons } from '../styles';
 
-type PrimaryButtonProps = {
+type SmallButtonProps = {
 	label: string,
 	action: () => void,
 	disabled?: boolean,
 }
-export const PrimaryButton: React.FC<PrimaryButtonProps> = ({label, action, disabled}) => {
+export const SmallButton: React.FC<SmallButtonProps> = ({label, action, disabled}) => {
 	return (
 		<Pressable disabled={disabled} style={
 			({pressed}) => { 
 				return disabled ? 
-					{...Buttons.primary.containerDisabled} :
+					{...Buttons.small.containerDisabled} :
 					pressed == true ? 
-					{...Buttons.primary.containerPressed} :
-					{...Buttons.primary.container} 
+					{...Buttons.small.containerPressed} :
+					{...Buttons.small.container} 
 			}
-		} onPress={action}>
-			<Text style={Buttons.primary.label}>{label}</Text>
+		} onTouchEnd={action}>
+			<Text style={Buttons.small.label}>{label}</Text>
 		</Pressable>
 	);
 }

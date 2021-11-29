@@ -38,4 +38,8 @@ declare namespace Blockreg {
 		fee: string,
 		serviceFee: string,
 	}
+
+	export type RegistrationResponse = [
+		string,
+	]
 }

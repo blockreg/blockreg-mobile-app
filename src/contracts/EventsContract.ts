@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import { ethers, BigNumber } from 'ethers';
+import { add } from 'react-native-reanimated';
 import { BASE_IPFS_URL, CONTRACT_ADDRESSES } from '../Constants';
 import { Blockreg } from '../types';
 import {abi} from './abis/Events';
@@ -76,6 +77,10 @@ class EventsContract {
 
 	async getHostedEvents(): Promise<Blockreg.EventResponse[]> {
 		return await this._contract.getHostedEvents();
+	}
+
+	async isEventOwner(eventId: number, address: string): Promise<boolean> {
+		return await this._contract.isEventOwner(BigNumber.from(eventId), address);
 	}
 } 
 

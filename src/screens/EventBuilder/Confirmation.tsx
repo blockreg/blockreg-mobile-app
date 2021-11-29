@@ -51,8 +51,8 @@ const Slide: React.FC<EventScreenProps> = ({navigation}) => {
 				console.log("SUCCESS", tx);
 				const events = await contract.getHostedEvents();
 				console.log(events);
-				const newEvent = events.pop();
-				navigation.navigate('EBSuccess', {event: newEvent});
+				const newEvent = events[events.length - 1];
+				navigation.navigate('EBSuccess', {event: {...event, id: newEvent[0].toNumber()}});
 			}, (e) => {
 				console.log(e);
 				setSubmitted(false);

@@ -30,14 +30,6 @@ const Navigation: React.FC<{}> = () => {
 					initialParams={{eventId: 1}}
 				/> 
 				<RootStack.Screen
-					name="TestTransaction"
-					component={Screens.TestTransaction}
-					options={{
-						headerTitle: "", 
-						headerBackVisible: true, 
-					}}
-				/> 
-				<RootStack.Screen
 					name="Tabs"
 					component={BottomTabNavigator}
 					options={{headerShown: false}}
@@ -91,7 +83,48 @@ const Navigation: React.FC<{}> = () => {
 					options={{
 						headerTitle: "", 
 					}}
+					initialParams={{eventId: 1}}
 				/> 
+
+				<RootStack.Screen
+					name="RBSlide2"
+					component={RBScreens.Slide2}
+					options={{
+						headerTitle: "", 
+					}}
+				/> 
+
+				<RootStack.Screen
+					name="RBConfirmation"
+					component={RBScreens.Confirmation}
+					options={{
+						headerTitle: "", 
+					}}
+				/> 
+
+				<RootStack.Screen
+					name="RBSuccess"
+					component={RBScreens.Success}
+					options={{
+						headerTitle: "", 
+					}}
+				/> 
+
+				<RootStack.Screen
+					name="Camera"
+					component={Screens.Camera}
+					options={{
+						headerTitle: "", 
+					}}
+				/>
+
+				<RootStack.Screen
+					name="SecureRegistration"
+					component={Screens.SecureRegistration}
+					options={{
+						headerTitle: "", 
+					}}
+				/>
 			</RootStack.Navigator>
 		</NavigationContainer>
 	);

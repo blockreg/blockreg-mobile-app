@@ -57,6 +57,9 @@
 	<string>FaceID is required to use this app.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>You'll want to save your event QR Codes.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>If you'd like to upload a logo for your event, choose allow.</string>
+
 	<key>UIAppFonts</key>
 	<array>
 		<string>Inter-Black.ttf</string>

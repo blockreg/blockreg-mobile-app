@@ -5,6 +5,7 @@ export const CONTRACT_ADDRESSES = {
 }
 export const STORAGE_KEYS = {
 	WALLET_PUBLIC_KEY: "walletPublicKey",
+	WALLET_ADDRESS: "walletAddress",
 	HOSTED_EVENTS: "hostedEvents",
 	SCANNED_EVENTS: "scannedEvents",
 }

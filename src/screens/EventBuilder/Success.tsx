@@ -14,14 +14,14 @@ import QRDisplay from '../../components/QRDisplay';
 
 type SuccessScreenProps = NativeStackScreenProps<StackParams, 'EBSuccess'>;
 
-const Slide: React.FC<SuccessScreenProps> = ({navigation, event}) => {
+const Slide: React.FC<SuccessScreenProps> = ({navigation, route}) => {
 	return (
 		<ScreenContainer>
 			<Text style={headlines.h1Secondary}>Success!</Text>
-			<EventCard event={event} />
+			<EventCard event={route.params.event} />
 			<Text style={headlines.h2}>Event QR Code</Text>
 			<Text style={headlines.sub1}>Your attendees will need this to register.</Text>
-			<QRDisplay eventId={event.id} />
+			<QRDisplay eventId={route.params.event.id} />
 		</ScreenContainer>
 	);
 };

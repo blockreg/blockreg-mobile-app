@@ -44,6 +44,7 @@ const WalletScreen: React.FC<{}> = () => {
 						dispatch(setPublicKey(key));
 						const wallet = new Wallet(credentials.password, getWeb3Provider());
 						const balance = await wallet.getBalance();
+						AsyncStorage.setItem(STORAGE_KEYS.WALLET_ADDRESS, wallet.address);
 						dispatch(setBalance(balance.toString()));
 					}
 				}

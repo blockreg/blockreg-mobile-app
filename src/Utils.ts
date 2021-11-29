@@ -1,6 +1,5 @@
 import { ethers } from "ethers";
 import ReactNativeBiometrics from 'react-native-biometrics';
-import { ForceTouchGestureHandler } from "react-native-gesture-handler";
 import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions';
 
 export function getWeb3Provider() {

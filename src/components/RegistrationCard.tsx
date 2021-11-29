@@ -1,39 +1,35 @@
-import { ethers } from 'ethers';
 import * as React from 'react';
-import { StyleSheet, Text, View, TextInputProps } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import { Colors, Layout, Styles, Typography } from '../styles';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import { BASE_IPFS_URL } from '../Constants';
+import { Colors, Layout, Styles } from '../styles';
 import { headlines, labels } from '../styles/typography';
 import { Blockreg } from '../types';
 
-type EventCardProps = {
+type RegistrationCardProps = {
+	registration: Blockreg.Registration,
 	event: Blockreg.Event
 }
 
-const EventCard:React.FC<EventCardProps> = ({event}) => {	
+const RegistrationCard:React.FC<RegistrationCardProps> = ({registration, event}) => {	
 	return (
 		<View style={{backgroundColor: event.badgeColor || Colors.darkGray}}>
 			<View style={_styles.columns}>
 				<View style={_styles.leftColumn}>
-					<Text>Logo goes here</Text>
+					<Image source={{uri: `${BASE_IPFS_URL}${registration.imageCid}`}} style={_styles.image} />
 				</View>
 				<View style={_styles.rightColumn}>
 					<View style={Layout.padding.screen}>
 						<Text style={Styles.smallLabel}>Event</Text>
 						<Text style={headlines.h2}>
+							{registration.name}
+						</Text>
+						<Text style={Styles.smallLabel}>Company</Text>
+						<Text style={headlines.h2}>
+							{registration.company}
+						</Text>
+						<Text style={Styles.smallLabel}>Event</Text>
+						<Text style={headlines.h2}>
 							{event.name}
-						</Text>
-						<Text style={Styles.smallLabel}>Date</Text>
-						<Text style={headlines.h2}>
-							{event.dateReadable || event.date}
-						</Text>
-						<Text style={Styles.smallLabel}>Max Attendance</Text>
-						<Text style={headlines.h2}>
-							{event.maxAttendance}
-						</Text>
-						<Text style={Styles.smallLabel}>Fee</Text>
-						<Text style={headlines.h2}>
-							{event.feeReadable || event.fee}
 						</Text>
 					</View>
 				</View>
@@ -42,7 +38,7 @@ const EventCard:React.FC<EventCardProps> = ({event}) => {
 	);
 }
 
-export default EventCard;
+export default RegistrationCard;
 
 const _styles = StyleSheet.create({
 	columns: {
@@ -54,6 +50,10 @@ const _styles = StyleSheet.create({
 		backgroundColor: "#FFFFFF",
 		alignItems: 'center',
 		justifyContent: 'center',
+	},
+	image: {
+		width: 160,
+		height: 220,
 	},
 	rightColumn: {
 		width: "60%",

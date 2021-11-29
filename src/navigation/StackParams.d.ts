@@ -5,18 +5,27 @@ import { Blockreg } from "../types";
 
 export type EventScreenParams = {eventId: number};
 export type EBSuccessParams = {event: Blockreg.Event};
+export type RBSuccessParams = {registration: Blockreg.Registration, event: Blockreg.Event};
 
 export type StackParams = {
 	'Tabs': BottomTabNavigationProp<BottomTabStackParams>,
-	'EventBuilder': NativeStackNavigationProp<EventBuilderParams>,
 	'Event': EventScreenParams,
-	'TestTransaction': undefined,
 	'EBSlide1': undefined,
 	'EBSlide2': undefined,
 	'EBSlide3': undefined,
 	'EBSlide4': undefined,
 	'EBConfirmation': undefined,
 	'EBSuccess': EBSuccessParams,
+
+	'RBSlide1': {eventId: number},
+	'RBSlide2': undefined,
+	'RBSlide3': undefined,
+	'RBSlide4': undefined,
+	'RBConfirmation': undefined,
+	'RBSuccess': RBSuccessParams,
+
+	'Camera': undefined,
+	'SecureRegistration': {event: Blockreg.Event, registration: Blockreg.Registration},
 }
 export type BottomTabStackParams = {
 	'Home': undefined,

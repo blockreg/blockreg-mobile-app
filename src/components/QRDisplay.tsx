@@ -10,17 +10,17 @@ import { readable } from '../styles/typography';
 type QRDisplayProps = {
 	eventId?: number,
 	registrationId?: number,
+	showSave?: boolean,
 }
 
 
-const QRDisplay:React.FC<QRDisplayProps> = ({eventId, registrationId}) => {
+const QRDisplay:React.FC<QRDisplayProps> = ({eventId, registrationId, showSave}) => {
 	const value = (eventId) ? `{"eventId":${eventId}}` : 
-	(registrationId) ? `{"registrationId":${registrationId}}` : 
+	(registrationId) ? `{"registrationId":${registrationId},"eventId":${eventId}}` : 
 	"";
 	const viewShot = React.useRef<ViewShot>({});
 	const [saved, setSaved] = React.useState(false);
 	const capture = () => {
-		console.log(viewShot.current.capture);
 		viewShot.current.capture().then((value) => {
 			CameraRoll.save(value, {type:'photo'});
 			setSaved(true);
@@ -33,11 +33,13 @@ const QRDisplay:React.FC<QRDisplayProps> = ({eventId, registrationId}) => {
 			<ViewShot ref={viewShot} style={_styles.container} options={{ format: "png", quality: 0.9 }}>
 				<QRCode value={value} size={Dimensions.get('screen').width-100}/>
 			</ViewShot>
-			{(!saved) ? ( 
+			{(showSave) ? (
+				(!saved) ? ( 
 				<Pressable onPress={capture}><Text style={_styles.saveButton}><Icon name='download-2-line' color={Colors.primary}/> Save</Text></Pressable>
-			) : (
-				<Text style={readable}>Saved!</Text>
-			)}
+				) : (
+					<Text style={readable}>Saved!</Text>
+				)
+			) : (<></>)}
 		</View>
 	) : (
 		<></>
